@@ -6,6 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+
+// CrudRepository
+// JpaRepository
+// PagingAndSortingRepository
 @Repository
 public interface IRegisterRepository extends CrudRepository<RegisterEntity,Long> {
 

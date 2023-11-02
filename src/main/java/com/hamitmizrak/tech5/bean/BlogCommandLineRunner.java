@@ -1,7 +1,9 @@
 package com.hamitmizrak.tech5.bean;
 
+import com.hamitmizrak.tech5.business.services.IRegisterServices;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+// import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +16,21 @@ import org.springframework.context.annotation.Configuration;
 public class BlogCommandLineRunner {
 
     // INJECTION
-    // 1.YOL
-    // private final IRegisterServices iRegisterServices;
+    // 1.YOL (Field Injection)
+    // @AutoWired
+    // private  IRegisterServices iRegisterServices;
+
+    // 2.YOL (Constructor Injection)
+    /*
+    private  IRegisterServices iRegisterServices;
+    @Autowired
+    public BlogCommandLineRunner(IRegisterServices iRegisterServices) {
+        this.iRegisterServices = iRegisterServices;
+    }
+    */
+
+    // 3.YOL (Lombok Constructor Injection)
+    // private final  IRegisterServices iRegisterServices;
 
     // FIRST
     public void blogCommandLineRunnerAfterBeanMethod(){
@@ -25,7 +40,7 @@ public class BlogCommandLineRunner {
 
     // Injection
     @Bean
-    public CommandLineRunner blogCommandLineRunnerMethod(IRegisterServices iRegisterServices) {
+    public CommandLineRunner blogCommandLineRunnerMethod(IRegisterServices iRegisterServices) { // 4.YOL (Parameter Injecion
         // Lambda Expression
         return args -> {
             System.out.println("CommandLineRunner Çalıştı");
