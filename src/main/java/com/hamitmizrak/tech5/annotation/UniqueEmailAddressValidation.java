@@ -1,5 +1,6 @@
 package com.hamitmizrak.tech5.annotation;
 
+import com.hamitmizrak.tech5.data.repository.IRegisterRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
