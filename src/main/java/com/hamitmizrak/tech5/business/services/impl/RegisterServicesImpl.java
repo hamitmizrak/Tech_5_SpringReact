@@ -143,14 +143,13 @@ public class RegisterServicesImpl implements IRegisterServices<RegisterDto, Regi
         if (registerDtoFindDto!=null){
             registerEntity=dtoToEntity(registerDto);
             registerEntity.setId(registerDto.getId());
-            registerEntity.setRegisterNickName(registerDto.getRegisterNickName());
+            //registerEntity.setRegisterNickName(registerDto.getRegisterNickName());
             registerEntity.setRegisterName(registerDto.getRegisterName());
             registerEntity.setRegisterSurname(registerDto.getRegisterSurname());
             registerEntity.setRegisterEmail(registerDto.getRegisterEmail());
             registerEntity.setRegisterPassword(registerDto.getRegisterPassword());
             registerEntity.setRegisterIsPassive(registerDto.getRegisterIsPassive());
            iRegisterRepository.save(registerEntity);
-
         }
         return entityToDto(registerEntity);
     }
