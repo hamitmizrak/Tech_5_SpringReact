@@ -1,6 +1,6 @@
 package com.hamitmizrak.tech5;
 
-public interface ICrudData {
+abstract  public interface ICrudData {
 
     // C R U D
 
