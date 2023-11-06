@@ -82,7 +82,7 @@ public class RegisterApiImpl implements IRegisterApi<RegisterDto> {
     @Override
     @PutMapping(value="/update/{id}")
     public ResponseEntity<?> registerApiUpdate( @PathVariable(name="id") Long id,  @Valid @RequestBody  RegisterDto registerDto) {
-        return ResponseEntity.status(200).body(iRegisterServices.registerServiceFindById(id));
+        return ResponseEntity.status(200).body(iRegisterServices.registerServiceUpdate(id,registerDto));
     }
 
     // DELETE BY ID

@@ -12,9 +12,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 // LOMBOK
 @RequiredArgsConstructor
@@ -34,19 +36,36 @@ public class RegisterServicesImpl implements IRegisterServices<RegisterDto, Regi
     // MODEL MAPPER
     @Override
     public RegisterDto entityToDto(RegisterEntity registerEntity) {
-        return modelMapperBeanClass.modelMapperMethod().map(registerEntity,RegisterDto.class);
+        return modelMapperBeanClass.modelMapperMethod().map(registerEntity, RegisterDto.class);
     }
 
     @Override
     public RegisterEntity dtoToEntity(RegisterDto registerDto) {
-        return modelMapperBeanClass.modelMapperMethod().map(registerDto,RegisterEntity.class);
+        return modelMapperBeanClass.modelMapperMethod().map(registerDto, RegisterEntity.class);
     }
 
     ////////////////////////////////////////////////////////////
     // SPEED DATA
     @Override
     public List<RegisterDto> registerServiceSpeedData(Long key) {
-        return null;
+        List<RegisterDto> registerDtoList = new ArrayList<>();
+        RegisterEntity registerEntity = null;
+        if (key != null) {
+            for (int i = 1; i <= key; i++) {
+                registerEntity = RegisterEntity.builder()
+                        .registerNickName("nickname " + i)
+                        .registerName("name " + i)
+                        .registerSurname("surname " + i)
+                        .registerPassword(passwordEncoderBeanClass.passwordEncoderMethod().encode("root"))
+                        .registerEmail("email" + UUID.randomUUID().toString() + "@gmail.com")
+                        .registerIsPassive(true)
+                        .remaningNumber(5L)
+                        .build();
+                iRegisterRepository.save(registerEntity);
+                registerDtoList.add(entityToDto(registerEntity));
+            }
+        }
+        return registerDtoList;
     }
 
     @Override
@@ -61,11 +80,11 @@ public class RegisterServicesImpl implements IRegisterServices<RegisterDto, Regi
     // FIND SURNAME
     @Override
     public RegisterDto loginServiceFindBySurname(String surname) {
-        Optional<RegisterEntity> find= iRegisterRepository.findByRegisterSurname(surname);
-       RegisterDto registerDto= entityToDto(find.get());
-       if(registerDto!=null){
-           return registerDto;
-       }
+        Optional<RegisterEntity> find = iRegisterRepository.findByRegisterSurname(surname);
+        RegisterDto registerDto = entityToDto(find.get());
+        if (registerDto != null) {
+            return registerDto;
+        }
         return null;
     }
 
@@ -77,8 +96,8 @@ public class RegisterServicesImpl implements IRegisterServices<RegisterDto, Regi
     @Override
     @Transactional
     public RegisterDto registerServiceCreate(RegisterDto registerDto) {
-        if(registerDto!=null){
-            RegisterEntity registerEntity=dtoToEntity(registerDto);
+        if (registerDto != null) {
+            RegisterEntity registerEntity = dtoToEntity(registerDto);
             // PasswordEncoder (masking)
             registerEntity.setRegisterPassword(passwordEncoderBeanClass.passwordEncoderMethod().encode(registerDto.getRegisterPassword()));
             iRegisterRepository.save(registerEntity);
@@ -93,8 +112,8 @@ public class RegisterServicesImpl implements IRegisterServices<RegisterDto, Regi
     @Override
     public List<RegisterDto> registerServiceList() {
         // Entity List
-        Iterable<RegisterEntity> registerEntityIterable= iRegisterRepository.findAll();
-        List<RegisterDto> registerDtoList=new ArrayList<>();
+        Iterable<RegisterEntity> registerEntityIterable = iRegisterRepository.findAll();
+        List<RegisterDto> registerDtoList = new ArrayList<>();
         for (RegisterEntity entity : registerEntityIterable) {
             registerDtoList.add(entityToDto(entity));
         }
@@ -123,11 +142,11 @@ public class RegisterServicesImpl implements IRegisterServices<RegisterDto, Regi
             throw new Resource404NotFoundException(id+" nolu id yoktur");
         }
          */
-        RegisterEntity registerEntity=null;
-        if(id!=null){
-        RegisterEntity find2=    iRegisterRepository.findById(id)
-                .orElseThrow(()-> new Resource404NotFoundException(id+" nolu id yoktur"));
-        }else if (id==null){
+        RegisterEntity registerEntity = null;
+        if (id != null) {
+            registerEntity= iRegisterRepository.findById(id)
+                    .orElseThrow(() -> new Resource404NotFoundException(id + " nolu id yoktur"));
+        } else if (id == null) {
             throw new HamitMizrakException("id null olarak geldi");
         }
         return entityToDto(registerEntity);
@@ -138,18 +157,17 @@ public class RegisterServicesImpl implements IRegisterServices<RegisterDto, Regi
     @Override
     @Transactional
     public RegisterDto registerServiceUpdate(Long id, RegisterDto registerDto) {
-        RegisterDto registerDtoFindDto=registerServiceFindById(id);
-        RegisterEntity  registerEntity=null;
-        if (registerDtoFindDto!=null){
-            registerEntity=dtoToEntity(registerDto);
-            registerEntity.setId(registerDto.getId());
-            //registerEntity.setRegisterNickName(registerDto.getRegisterNickName());
+        RegisterDto registerDtoFindDto = registerServiceFindById(id);
+        RegisterEntity registerEntity = null;
+        if (registerDtoFindDto != null) {
+            registerEntity = dtoToEntity(registerDto);
+            registerEntity.setId(id);
             registerEntity.setRegisterName(registerDto.getRegisterName());
             registerEntity.setRegisterSurname(registerDto.getRegisterSurname());
             registerEntity.setRegisterEmail(registerDto.getRegisterEmail());
             registerEntity.setRegisterPassword(registerDto.getRegisterPassword());
             registerEntity.setRegisterIsPassive(registerDto.getRegisterIsPassive());
-           iRegisterRepository.save(registerEntity);
+            iRegisterRepository.save(registerEntity);
         }
         return entityToDto(registerEntity);
     }
@@ -159,9 +177,9 @@ public class RegisterServicesImpl implements IRegisterServices<RegisterDto, Regi
     @Override
     @Transactional
     public RegisterDto registerServiceDeleteById(Long id) {
-        RegisterDto registerDtoFindDto=registerServiceFindById(id);
-        RegisterEntity  registerEntity=null;
-        if (registerDtoFindDto!=null)
+        RegisterDto registerDtoFindDto = registerServiceFindById(id);
+        RegisterEntity registerEntity = null;
+        if (registerDtoFindDto != null)
             iRegisterRepository.deleteById(id);
         return registerDtoFindDto;
     }

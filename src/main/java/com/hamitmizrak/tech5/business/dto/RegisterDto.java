@@ -4,6 +4,7 @@ import com.hamitmizrak.tech5.annotation.AnnotationUniqueEmailAddress;
 import com.hamitmizrak.tech5.audit.AuditingAwareBaseDto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 // LOMBOK
 @Data
 @Log4j2
+@AllArgsConstructor
 @Builder
 
 // REGISTER
@@ -43,6 +45,9 @@ public class RegisterDto extends AuditingAwareBaseDto implements Serializable {
 
     @Builder.Default //default olarak kullanıcı pasif olsun admin bunu aktif yapsın
     private Boolean registerIsPassive=false;
+
+    @Builder.Default
+    private Long remaningNumber=5L;
 
     //parametresiz constructor
     public RegisterDto() {
