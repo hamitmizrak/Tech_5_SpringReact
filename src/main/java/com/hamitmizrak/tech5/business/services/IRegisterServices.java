@@ -40,5 +40,4 @@ public interface IRegisterServices <D,E>{
     // DELETE
     public D registerServiceDeleteById(Long id);
 
-
 } //end interface
