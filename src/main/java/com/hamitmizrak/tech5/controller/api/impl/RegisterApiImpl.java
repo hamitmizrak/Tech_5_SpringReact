@@ -77,6 +77,14 @@ public class RegisterApiImpl implements IRegisterApi<RegisterDto> {
         return ResponseEntity.ok().body(iRegisterServices.registerServiceFindById(id));
     }
 
+    // FIND BY EMAIL ADDRESS
+    // http://localhost:4444/register/api/v1.0.0/find/email/hamitmizrak@gmail.com
+    @Override
+    @GetMapping(value="/find/email/{address}")
+    public ResponseEntity<?> registerApiFindByEmailAddress(@PathVariable(name="address") String email) {
+        return ResponseEntity.ok().body(iRegisterServices.loginServiceFindByEmail(email));
+    }
+
     // UPDATE
     // http://localhost:4444/register/api/v1.0.0/update/1
     @Override

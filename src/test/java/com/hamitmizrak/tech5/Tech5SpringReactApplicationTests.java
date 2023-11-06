@@ -7,11 +7,8 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
-
 // Ben ekledim (Önemli)
 import static org.assertj.core.api.Assertions.assertThat;
-
 
 
 /*
@@ -28,7 +25,7 @@ NOT: Ekledikten sonra ki ID:1 olana göre gidiyorum.
 
 // TEST
 @SpringBootTest
-class Tech5SpringReactApplicationTests implements ICrudData {
+class Tech5SpringReactApplicationTests implements ITestCrudData {
 
     // INJECTION
     private final IRegisterRepository iRegisterRepository;

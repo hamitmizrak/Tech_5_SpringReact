@@ -30,6 +30,7 @@ public interface IRegisterApi<D> {
 
     // FIND
     public ResponseEntity<?> registerApiFindById(Long id);
+    public ResponseEntity<?> registerApiFindByEmailAddress(String email);
 
     // UPDATE
     public ResponseEntity<?> registerApiUpdate(Long id, D d);

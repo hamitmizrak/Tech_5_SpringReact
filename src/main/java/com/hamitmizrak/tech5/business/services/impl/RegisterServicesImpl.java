@@ -88,6 +88,16 @@ public class RegisterServicesImpl implements IRegisterServices<RegisterDto, Regi
         return null;
     }
 
+    @Override
+    public RegisterDto loginServiceFindByEmail(String email) {
+        Optional<RegisterEntity> findEmailWithObject = iRegisterRepository.findByRegisterEmail(email);
+        RegisterDto registerDto = entityToDto(findEmailWithObject.get());
+        if (registerDto != null) {
+            return registerDto;
+        }
+        return null;
+    }
+
     ////////////////////////////////////////////////////////////
     // REGISTER C R U D
     // CREATE
