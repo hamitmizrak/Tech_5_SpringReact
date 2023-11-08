@@ -1,3 +1,21 @@
+/* dark mode */
+:root{
+  --body_background:white!important;
+  --body_color:black!important;
+}
+
+/* dark mode */
+[data-theme="dark"]{
+  --body_background:black!important;
+  --body_color:white!important;
+}
+
+/* dark mode */
+*{
+  transition: all 0.3 ease-in-out;
+}
+
+/* Body */
 body {
   margin: 0;
   padding: 0px;
@@ -9,6 +27,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Code */
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
