@@ -167,6 +167,7 @@ public class RegisterServicesImpl implements IRegisterServices<RegisterDto, Regi
     @Override
     @Transactional
     public RegisterDto registerServiceUpdate(Long id, RegisterDto registerDto) {
+        // FIND
         RegisterDto registerDtoFindDto = registerServiceFindById(id);
         RegisterEntity registerEntity = null;
         if (registerDtoFindDto != null) {
@@ -187,6 +188,7 @@ public class RegisterServicesImpl implements IRegisterServices<RegisterDto, Regi
     @Override
     @Transactional
     public RegisterDto registerServiceDeleteById(Long id) {
+        // FIND
         RegisterDto registerDtoFindDto = registerServiceFindById(id);
         RegisterEntity registerEntity = null;
         if (registerDtoFindDto != null)
