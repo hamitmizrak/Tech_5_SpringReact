@@ -13,7 +13,7 @@ import { withTranslation } from 'react-i18next';
 import OtherLanguageServices from "./OtherLanguageServices";
 import { Link } from 'react-router-dom';
 
-//Funksiyon komponent
+//Fonksiyon komponent
 function OtherLanguageReusability(props) {
 
     //Bayraklar

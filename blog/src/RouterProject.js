@@ -29,8 +29,11 @@ function RouterProject() {
     // RETURN
     return (
         <React.Fragment>
-            <HeaderProject logo="" />
+              <HeaderProject logo="fa-solid fa-cloud"></HeaderProject>
 
+                {/* ROUTING */}
+                {/* dark mode */}
+                {/* dark mode:App-header */}
             <div className="container mt-5 App-header">
                 <Routes>
 

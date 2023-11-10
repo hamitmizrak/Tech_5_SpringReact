@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-/delete/all
+
 
 // Const Persist Data
 const REGISTER_URL="register/api/v1.0.0";

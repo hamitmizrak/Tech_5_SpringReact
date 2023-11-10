@@ -1,102 +1,47 @@
-
 // rcc
 import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 
-// CLASS COMPONENT
+// Footer Class
 class FooterProject extends Component {
 
-    // Static Page Showing
-    static displayName = "Footer_Blog"
+    // Display Name
+    static displayName = "Footer_Project";
 
-    // RENDER
+    // CONSTRUCTOR
+    constructor(props) {
+        super(props);
+
+        // STATE
+        this.state = {
+
+        }
+
+        // BIND
+        this.newDate=this.newDate.bind(this);
+    }
+
+    // CDM
+
+    //FUNCTION
+        //FUNCTION
+        newDate() {
+            return new Date().getFullYear();
+        }
+
     render() {
-
-        // RETURN
+        // Object destructing
+        const {t}=this.props;
         return (
             <React.Fragment>
-                <footer
-                    className="text-center bg-dark fixed-bottom"
-                    style={{ color: "white!important" }}
-                >
-                    {/* Grid container */}
-                    <div className="container pt-4">
-                        {/* Section: Social media */}
-                        <section className="mb-4">
-                            {/* Facebook */}
-                            <a
-                                className="btn btn-link btn-floating btn-lg text-dark m-1"
-                                href="#!"
-                                role="button"
-                                data-mdb-ripple-color="dark"
-                            >
-                                <i className="fab fa-facebook-f" />
-                            </a>
-                            {/* Twitter */}
-                            <a
-                                className="btn btn-link btn-floating btn-lg text-dark m-1"
-                                href="#!"
-                                role="button"
-                                data-mdb-ripple-color="dark"
-                            >
-                                <i className="fab fa-twitter" />
-                            </a>
-                            {/* Google */}
-                            <a
-                                className="btn btn-link btn-floating btn-lg text-dark m-1"
-                                href="#!"
-                                role="button"
-                                data-mdb-ripple-color="dark"
-                            >
-                                <i className="fab fa-google" />
-                            </a>
-                            {/* Instagram */}
-                            <a
-                                className="btn btn-link btn-floating btn-lg text-dark m-1"
-                                href="#!"
-                                role="button"
-                                data-mdb-ripple-color="dark"
-                            >
-                                <i className="fab fa-instagram" />
-                            </a>
-                            {/* Linkedin */}
-                            <a
-                                className="btn btn-link btn-floating btn-lg text-dark m-1"
-                                href="#!"
-                                role="button"
-                                data-mdb-ripple-color="dark"
-                            >
-                                <i className="fab fa-linkedin" />
-                            </a>
-                            {/* Github */}
-                            <a
-                                className="btn btn-link btn-floating btn-lg text-dark m-1"
-                                href="#!"
-                                role="button"
-                                data-mdb-ripple-color="dark"
-                            >
-                                <i className="fab fa-github" />
-                            </a>
-                        </section>
-                        {/* Section: Social media */}
+                <footer className=' bg-dark App-header44 text-center text-white fixed-bottom'>
+                    <div className='text-center p-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
+                        ©2021- {this.newDate()} - <a className='text-white' href=''>{t('all_rights_reserved')}</a>
                     </div>
-                    {/* Grid container */}
-                    {/* Copyright */}
-                    <div
-                        className="text-center text-dark p-3"
-                        style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
-                    >
-                        © 2020 Copyright:
-                        <a className="text-dark" href="https://mdbootstrap.com/">
-                            MDBootstrap.com
-                        </a>
-                    </div>
-                    {/* Copyright */}
                 </footer>
-
             </React.Fragment>
-        ); // end return
-    } // end render
-} //end Main Class
+        );
+    }
+}
 
-// EXPORT
-export default FooterProject;
+export default withTranslation()(FooterProject) ;
