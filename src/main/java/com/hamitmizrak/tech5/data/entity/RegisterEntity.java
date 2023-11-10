@@ -1,6 +1,5 @@
 package com.hamitmizrak.tech5.data.entity;
 
-import com.hamitmizrak.tech5.data.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

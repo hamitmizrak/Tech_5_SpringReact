@@ -1,4 +1,4 @@
-package com.hamitmizrak.tech5.data;
+package com.hamitmizrak.tech5.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hamitmizrak.tech5.audit.AuditingAwareBaseEntity;
@@ -17,7 +17,7 @@ import java.util.Date;
 
 // abstract CLASS
 @MappedSuperclass
-@JsonIgnoreProperties(value={},allowGetters = true) // json buradaki verileri takip etme
+@JsonIgnoreProperties(value = {"created_date,updated_date"},allowGetters = true) // Json'a emir veriyoruz bunları takip etme
 abstract public class BaseEntity extends AuditingAwareBaseEntity implements Serializable {
 
     // Serileştirme
