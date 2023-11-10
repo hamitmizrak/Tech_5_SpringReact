@@ -1,9 +1,7 @@
 import axios from 'axios';
 
-
-
 // Const Persist Data
-const REGISTER_URL="register/api/v1.0.0";
+const REGISTER_URL="/register/api/v1.0.0";
 
 // Services Api
 class RegisterServicesApi  {
@@ -22,8 +20,6 @@ class RegisterServicesApi  {
     registerApiDeleteAll() {
         return axios.get(REGISTER_URL+"/delete/all");
     }
-
-    /////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////
     // C R U D
