@@ -40,6 +40,9 @@ public class LoginApiImpl implements ILoginApi {
     // LOGIN Basic Authentication
     // http://localhost:4444/login/api/v1.0.0/authentication
     // UNUTMAAAAA: frontentte(ReactJS) yazarken username:password olarak yazmalısınız
+    // Basic Authentication   => Authorization
+    // @PathVariable => /
+    // @RequestParam => ?
     @Override
     @PostMapping("/authentication")
     public ResponseEntity<?> login( @RequestHeader(name="Authorization",required = false) String authorization) {
@@ -112,7 +115,7 @@ public class LoginApiImpl implements ILoginApi {
             mapList.put("surname",findRegisterEntityByEmail.getRegisterSurname());
             mapList.put("email",findRegisterEntityByEmail.getRegisterEmail());
             mapList.put("password",findRegisterEntityByEmail.getRegisterPassword());
-            mapList.put("remaing_number",findRegisterEntityByEmail.getRemaningNumber());
+            mapList.put("remaning_number",findRegisterEntityByEmail.getRemaningNumber());
             mapList.put("is_passive",findRegisterEntityByEmail.getRegisterIsPassive());
         return ResponseEntity.ok(mapList);
     }

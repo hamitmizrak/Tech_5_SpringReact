@@ -64,10 +64,14 @@ public class RegisterServicesImpl implements IRegisterServices<RegisterDto, Regi
                 iRegisterRepository.save(registerEntity);
                 registerDtoList.add(entityToDto(registerEntity));
             }
+            registerDtoList.stream().forEach((temp)->
+                    System.out.println(temp)
+            );
         }
         return registerDtoList;
     }
 
+    // DELETE ALL
     @Override
     public String registerServiceDeleteAll() {
         iRegisterRepository.deleteAll();
@@ -136,6 +140,7 @@ public class RegisterServicesImpl implements IRegisterServices<RegisterDto, Regi
             System.out.println(data);
         });
         */
+        log.info("Register Liste Sayısı:"+registerDtoList.size());
         registerDtoList.forEach(System.out::println);
         return registerDtoList;
     }
@@ -152,6 +157,8 @@ public class RegisterServicesImpl implements IRegisterServices<RegisterDto, Regi
             throw new Resource404NotFoundException(id+" nolu id yoktur");
         }
          */
+
+        // 2.YOL
         RegisterEntity registerEntity = null;
         if (id != null) {
             registerEntity= iRegisterRepository.findById(id)

@@ -17,8 +17,10 @@ import java.util.List;
 
 // API : Dış dünyaya açılan kapı
 @RestController
-@RequestMapping("/register/api/v1.0.0")
-@CrossOrigin
+@RequestMapping("/register/api/v1.0.0") //v1.0.0 1: major version 0: minor 0: patch
+@CrossOrigin // CORSS Hatası almamak için
+//@CrossOrigin(origins = FrontendPortUrl.REACT_FRONTEND_PORT_URL)
+//Dış dünyaya açılan kapı
 public class RegisterApiImpl implements IRegisterApi<RegisterDto> {
 
     // Injection
