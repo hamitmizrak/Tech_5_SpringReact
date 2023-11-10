@@ -1,32 +1,47 @@
 package com.hamitmizrak.tech5.data.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.hamitmizrak.tech5.audit.AuditingAwareBaseEntity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
+import java.util.Date;
 
 // LOMBOK
 @Data
-@Log4j2
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Log4j2
+// @SneakyThrows
 
 // ENTITY
 @Entity(name="Roles")
 @Table(name = "roles")
-public class RoleEntity  extends BaseEntity implements Serializable {
+public class RoleEntity extends AuditingAwareBaseEntity implements Serializable {
 
-    // Serileştirme
-    public static final Long serialVersionUID=1L;
+	// Serileştirme
+	public static final Long serialVersionUID = 1L;
 
-    @Column(name = "role_name",columnDefinition = "varchar(255) default 'Role Adınızı girmediniz")
-    private String roleName;
-}
+	@Id
+	@Column(name = "role_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //unique id
+	//@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long rolesId;
+
+	@Column(name="role_name",columnDefinition = "varchar(255) default 'Role Adı girmediniz'")
+	private String roleName;
+
+	// DATE
+	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date systemDate;
+	//private LocalDate systemDate;
+	
+} //end class

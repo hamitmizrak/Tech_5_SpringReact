@@ -1,43 +1,35 @@
 package com.hamitmizrak.tech5.controller.api;
 
+import com.hamitmizrak.tech5.business.dto.RoleDto;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-// D: Dto
-public interface IRolesUserApi<D> {
+// NOT: interface için önemli bilgiler
+// 1-) interface extends ile başka bir interface ekleyebilirsin. =>
+// public interface IProfileHeaderApp extends IModelMapperService
 
-    // INJECTION
+// 2-) interface abstract ekleyerek implements eden class bütün metotları eklemez. =>
+// abstract public interface IProfileHeaderApp
+public interface IRolesUserApi {
 
-    // SPEED DATA
-    public ResponseEntity<List<D>> registerApiSpeedData(Long key);
+    // ROLES CREATE
+    public ResponseEntity<RoleDto> rolesCreate(RoleDto roleDto);
 
-    // ALL DELETE
-    public ResponseEntity<?> registerApiDeleteAll();
-
-    /////////////////////////////////////////////////////////////
-    // LOGIN
-    // FIND SURNAME
-    public ResponseEntity<?> userEmailFindRoles(String emailAddress);
-
-    ////////////////////////////////////////////////////////////
-
-    // C R U D
-    // CREATE
-    public ResponseEntity<?> rolesApiCreate(D d);
-
-    // LIST
-    public ResponseEntity<List<D>> rolesApiList();
+    // ROLES LIST
+    public ResponseEntity<List<RoleDto>> rolesList();
 
     // FIND
-    public ResponseEntity<?> rolesApiFindById(Long id);
+    ResponseEntity<?> rolesApiFindById(Long id);
 
     // UPDATE
-    public ResponseEntity<?> rolesApiUpdate(Long id, D d);
+    ResponseEntity<RoleDto> rolesUpdate(Long id, RoleDto roleDto);
 
-    // DELETE
-    public ResponseEntity<?> rolesApiDeleteById(Long id);
+    ////////////////////////////////////////////////////////////////////////
+    //Email adresinde kullanı rolünü bulmak
+    ResponseEntity<RoleDto> userEmailFindRoles(String emailAddress);
 
-} //end interface
+    // ROLE DELETE
+    ResponseEntity<?> rolesDelete(Long id);
 
-
+} // end class

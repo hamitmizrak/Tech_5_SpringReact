@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 // LOMBOK
 @Data
@@ -61,6 +62,31 @@ public class RegisterDto extends AuditingAwareBaseDto implements Serializable {
     // REMANING NUMBER
     @Builder.Default
     private Long remaningNumber=5L;
+
+
+    // ROLES (ENUM)
+    // @Builder.Default // Default bileşen için kullanılır.
+    // private ERoles userRoles=ERoles.USER;
+    private Collection<RoleDto> roles;
+
+    // #######################################################
+    // USER DETAILS
+    // Kullanıcı başlangıçta kilitli yani sisteme giremezsin(Mail ile aktif etsin)
+    @Builder.Default
+    private Boolean isAccountNonLocked = false;
+
+    // Kullanıcını Hesap süresi Doldu mu ?
+    @Builder.Default
+    private Boolean isAccountNonExpired = true;
+
+    // Kulllanıcının Bilgi Süresi Doldu mu?
+    @Builder.Default
+    private Boolean isCredentialsNonExpired = true;
+
+    // Kullanıcı Aktif mi ? pasif mi
+    @Builder.Default
+    private Boolean isEnabled = true;
+
 
     //parametresiz constructor
     public RegisterDto() {

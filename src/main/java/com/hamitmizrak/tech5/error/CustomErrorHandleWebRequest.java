@@ -1,6 +1,5 @@
 package com.hamitmizrak.tech5.error;
 
-
 import com.hamitmizrak.tech5.utils.FrontendPortUrl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -8,7 +7,9 @@ import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
@@ -17,67 +18,62 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// LOMBOK
-@Log4j2 // Loglama
-@RequiredArgsConstructor //Injection (Autowired)
+//LOMBOK
+@Log4j2
+@RequiredArgsConstructor
 
-// ErrorController
-// ErrorAttributes
-// WebRequest
-
-// Spring Boot defaulttan gelen error'ı kendimize göre customise yapıyoruz.
+// SpringBoot defaulltan gelen error'ı kendimize göre customize yapıyoruz.
 @RestController
-@CrossOrigin(origins = FrontendPortUrl.REACT_FRONTEND_PORT_URL) //localhost:3000 portunu backentte kullanabiliriz.
+@CrossOrigin(origins = FrontendPortUrl.REACT_FRONTEND_PORT_URL)// @CrossOrigin(origins = "http://localhost:3000")
 public class CustomErrorHandleWebRequest implements ErrorController {
 
-    // 1.YOL (Field Injection)
-    // @Autowired
-    // private ErrorAttributes errorAttributes;
-
-    // 2.YOL (Constructor Injecftion)
-    /*private ErrorAttributes errorAttributes;
-    @Autowired
-    public CustomErrorHandleWebRequest(ErrorAttributes errorAttributes) {
-        this.errorAttributes = errorAttributes;
-    }*/
-
-    // 3.YOL (Lombok Injection)
+    // INJECTION
     private final ErrorAttributes errorAttributes;
 
-    // Pırasa Vali MESC
-    private ApiResult apiResult;
-    private String path;
-    private String message;
-    private int status;
-    private Map<String,String> validationErrors;
-
-    // http://localhost:4444/error
+    // 1.YOL
+    // http://localhost:2222/error
+    // Spring'ten gelen /error yakalayıp custom handle yapmak için
     @RequestMapping("/error")
-    public ApiResult handleErrorMethod(WebRequest webRequest){
+    public ApiResult handleError(WebRequest webRequest) {
+        //ApiResult değişkenlerini atamak
+        int status;
+        String message,path;
+        ApiResult error;
 
-        // Spring >=2.3
-        Map<String,Object> attributes=errorAttributes.getErrorAttributes(
-                webRequest,
-                ErrorAttributeOptions
-                        .of(ErrorAttributeOptions.Include.MESSAGE,ErrorAttributeOptions.Include.BINDING_ERRORS)
+        //Spring 2.3>= sonra böyle oldu
+        Map<String, Object> attributes = this.errorAttributes.getErrorAttributes(
+                webRequest, ErrorAttributeOptions.of(ErrorAttributeOptions.Include.MESSAGE, ErrorAttributeOptions.Include.BINDING_ERRORS)
         ); //end attributes
 
-        // Spring'ten verileri almak
-        status= (int) attributes.get("status");
-        message= (String) attributes.get("message");
-        path= (String) attributes.get("path");
-        apiResult= new ApiResult(path,message,status);
+        status = (Integer) attributes.get("status");
+        message = (String) attributes.get("message");
+        path = (String) attributes.get("path");
+        error = new ApiResult(status, path, message);
 
-        // attributes error varsa
-        if(attributes.containsKey("errors")){
-            List<FieldError> fieldErrorList= (List<FieldError>) attributes.get("errors");
-            validationErrors=new HashMap<>();
-            // for each dongu
-            for(FieldError fieldError : fieldErrorList){
-                validationErrors.put(fieldError.getField(),fieldError.getDefaultMessage());
+        //attibutesta error varsa
+        if (attributes.containsKey("errors")) {
+            List<FieldError> fieldErrorList = (List) attributes.get("errors");
+            Map<String, String> validationMistake = new HashMap<>();
+            for (FieldError fieldError : fieldErrorList) {
+                validationMistake.put(fieldError.getField(), fieldError.getDefaultMessage());
             }
-            apiResult.setValidationErrors(validationErrors);
+            error.setValidationErrors(validationMistake);
         }
-        return apiResult;
-    } //end handleErrorMethod
-} // end CustomErrorHandleWebRequest
+        return error;
+    } //end 1.YOL handleError
+
+
+    //2.YOL
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    //400 göndersin yazmazsak spring 200 döner
+    // @ResponseStatus(HttpStatus.BAD_REQUEST)
+     public ApiResult handleValidationException(MethodArgumentNotValidException exception) {
+     ApiResult error = new ApiResult(400, "Validation error888", "PATH");
+     Map<String, String> validationErrors = new HashMap<>();
+     for (FieldError fieldError : exception.getBindingResult().getFieldErrors()) {
+         validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());    }
+     error.setValidationErrors(validationErrors);
+     return error;
+    } //end 2.YOL
+
+} //end Class

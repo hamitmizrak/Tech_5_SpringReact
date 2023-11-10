@@ -84,8 +84,8 @@ public class RegisterServicesImpl implements IRegisterServices<RegisterDto, Regi
     // FIND SURNAME
     @Override
     public RegisterDto loginServiceFindBySurname(String surname) {
-        Optional<RegisterEntity> find = iRegisterRepository.findByRegisterSurname(surname);
-        RegisterDto registerDto = entityToDto(find.get());
+       RegisterEntity find = iRegisterRepository.findByRegisterSurname(surname);
+        RegisterDto registerDto = entityToDto(find);
         if (registerDto != null) {
             return registerDto;
         }

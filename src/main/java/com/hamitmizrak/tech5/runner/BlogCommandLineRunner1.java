@@ -1,4 +1,4 @@
-package com.hamitmizrak.tech5.bean;
+package com.hamitmizrak.tech5.runner;
 
 import com.hamitmizrak.tech5.business.services.IRegisterServices;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @Log4j2
-public class BlogCommandLineRunner {
+public class BlogCommandLineRunner1 {
 
     // INJECTION
     // 1.YOL (Field Injection)
@@ -45,7 +45,7 @@ public class BlogCommandLineRunner {
         return args -> {
             System.out.println("CommandLineRunner Çalıştı");
             log.info("CommandLineRunner Çalıştı");
-            iRegisterServices.registerServiceSpeedData(5L);
+            //iRegisterServices.registerServiceSpeedData(5L);
         };
     }
 

@@ -1,6 +1,7 @@
 package com.hamitmizrak.tech5.bean;
 
 import com.hamitmizrak.tech5.audit.AuditorAwareBeanClass;
+import com.hamitmizrak.tech5.runner.BlogCommandLineRunner1;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +15,8 @@ public class AllAfterBeanBeforeBean {
 
     // Command Line Runner Bean Method
     @Bean(initMethod = "blogCommandLineRunnerAfterBeanMethod",destroyMethod ="blogCommandLineRunnerBeforeBeanMethod")
-    public BlogCommandLineRunner blogCommandLineRunner(){
-        return new BlogCommandLineRunner();
+    public BlogCommandLineRunner1 blogCommandLineRunner(){
+        return new BlogCommandLineRunner1();
     }
 
     // Model Mapper
