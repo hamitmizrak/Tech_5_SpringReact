@@ -4,6 +4,8 @@ import com.hamitmizrak.tech5.annotation.AnnotationUniqueEmailAddress;
 import com.hamitmizrak.tech5.audit.AuditingAwareBaseDto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,27 +27,38 @@ public class RegisterDto extends AuditingAwareBaseDto implements Serializable {
 
     // Global Variable (6)
     // Dikkat: message sonunda boşluk olmasın
+    // NICKNAME
     @NotEmpty(message = "{register.nickname.validation.constraints.NotNull.message}")
     private String registerNickName;
 
+    // NAME
     @NotEmpty(message = "{register.name.validation.constraints.NotNull.message}")
     private String registerName;
 
+    //SURNAME
     @NotEmpty(message = "{register.surname.validation.constraints.NotNull.message}")
     private String registerSurname;
 
+    // EMAIL
     // Kendi annotation'ımı yazdı
     @AnnotationUniqueEmailAddress
     @NotEmpty(message = "{register.email.validation.constraints.NotNull.message}")
     @Email(message = "{register.email.validation.constraints.regex.message}")
     private String registerEmail;
 
+    // PASSWORD
+    //@JsonIgnore // backentte giden veriyi saklar
     @NotEmpty(message = "{register.password.validation.constraints.NotNull.message}")
+    @Size(min = 7, max = 15, message = "{register.password.validation.constraints.MinMax.NotNull.message}")
+    // Hm123456@.
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).*$", message = "{register.password.pattern.validation.constraints.NotNull.message}")
     private String registerPassword;
 
+    // IS ACTIVE
     @Builder.Default //default olarak kullanıcı pasif olsun admin bunu aktif yapsın
     private Boolean registerIsPassive=false;
 
+    // REMANING NUMBER
     @Builder.Default
     private Long remaningNumber=5L;
 
