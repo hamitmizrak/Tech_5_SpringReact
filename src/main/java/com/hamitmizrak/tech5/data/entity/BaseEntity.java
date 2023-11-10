@@ -17,7 +17,7 @@ import java.util.Date;
 
 // abstract CLASS
 @MappedSuperclass
-@JsonIgnoreProperties(value = {"created_date,updated_date"},allowGetters = true) // Json'a emir veriyoruz bunları takip etme
+//@JsonIgnoreProperties(value = {"created_date,updated_date"},allowGetters = true) // Json'a emir veriyoruz bunları takip etme
 abstract public class BaseEntity extends AuditingAwareBaseEntity implements Serializable {
 
     // Serileştirme
@@ -33,6 +33,6 @@ abstract public class BaseEntity extends AuditingAwareBaseEntity implements Seri
     @Builder.Default // Lombok Default
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
-    protected Date systemDate;
+    protected Date systemCreatedDate;
 
 } //end class

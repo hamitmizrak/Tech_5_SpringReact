@@ -116,7 +116,7 @@ public class RegisterServicesImpl implements IRegisterServices<RegisterDto, Regi
             registerEntity.setRegisterPassword(passwordEncoderBeanClass.passwordEncoderMethod().encode(registerDto.getRegisterPassword()));
             iRegisterRepository.save(registerEntity);
             registerDto.setId(registerEntity.getId());
-            registerDto.setSystemDate(registerEntity.getSystemDate());
+            registerDto.setSystemCreatedDate(registerEntity.getSystemCreatedDate());
             return registerDto;
         }
         return null;

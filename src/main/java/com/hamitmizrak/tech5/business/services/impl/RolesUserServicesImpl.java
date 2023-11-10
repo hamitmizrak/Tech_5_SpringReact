@@ -84,7 +84,7 @@ public class RolesUserServicesImpl implements IRolesUserServices<RoleDto, RoleEn
             roleEntity.setRoleName(roleEntity.getRoleName().toUpperCase());
             iRoleRepository.save(roleEntity);
             roleDto.setId(roleEntity.getId());
-            roleDto.setSystemDate(roleEntity.getSystemDate());
+            roleDto.setSystemCreatedDate(roleEntity.getSystemCreatedDate());
             return roleDto;
         }
         return null;

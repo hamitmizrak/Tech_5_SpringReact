@@ -45,7 +45,7 @@ public class BlogCommandLineRunner {
         return args -> {
             System.out.println("CommandLineRunner Çalıştı");
             log.info("CommandLineRunner Çalıştı");
-           // iRegisterServices.registerServiceSpeedData(5L);
+            iRegisterServices.registerServiceSpeedData(5L);
         };
     }
 

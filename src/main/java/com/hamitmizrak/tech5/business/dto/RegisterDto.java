@@ -87,7 +87,7 @@ public class RegisterDto extends AuditingAwareBaseDto implements Serializable {
                 ", registerPassword='" + registerPassword + '\'' +
                 ", registerIsPassive='" + registerIsPassive + '\'' +
                 ", id=" + id +
-                ", systemDate=" + systemDate +
+                ", systemCreatedDate=" + systemCreatedDate +
                 ", createdUser='" + createdUser + '\'' +
                 ", createdDate=" + createdDate +
                 ", lastUser='" + lastUser + '\'' +
